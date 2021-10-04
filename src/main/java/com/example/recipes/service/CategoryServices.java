@@ -1,6 +1,7 @@
 package com.example.recipes.service;
 
 
+import com.example.recipes.DTO.CategoryDTO;
 import com.example.recipes.model.Category;
 import com.example.recipes.repo.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public class CategoryServices {
-    @Autowired
+//    @Autowired
     private final CategoryRepo categoryRepo;
 
     public CategoryServices(CategoryRepo categoryRepo) {
@@ -22,10 +23,24 @@ public class CategoryServices {
 //  C
     public Category addCategory(Category category){
 
+        if(categoryNameValid(category.getName())){
+            return null;
+        }
+
         return categoryRepo.save(category);
     }
 
-//  R
+    private boolean categoryNameValid(String name) {
+
+        if(categoryRepo.getAllNames().contains(name)){
+            return false;
+        }
+        return true;
+
+
+    }
+
+    //  R
     public List<Category> findAllCategories() {
 
         return categoryRepo.findAll();
@@ -40,10 +55,20 @@ public class CategoryServices {
 
         return categoryRepo.findByName(name).get(0);
     }
+    public List<String> findCategoryNames(){
+        return categoryRepo.getAllNames();
+    }
 
 //   U
     public Category updateCategory(Category category){
-        return categoryRepo.save(category);
+        Optional<Category> wantedCategory = categoryRepo.findById(category.getCategoryId());
+        if(wantedCategory.isPresent()){
+            return categoryRepo.save(category);
+        }
+        else {
+            return null;
+        }
+
 
     }
 //   D

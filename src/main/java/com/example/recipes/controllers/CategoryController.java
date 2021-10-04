@@ -1,5 +1,6 @@
 package com.example.recipes.controllers;
 
+import com.example.recipes.DTO.CategoryDTO;
 import com.example.recipes.model.Category;
 import com.example.recipes.service.CategoryServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +24,31 @@ public class CategoryController {
     public List<Category> getAllCategories(){
         return categoryServices.findAllCategories();
     }
-
-
+    @GetMapping("/{name}")
+    public Category findByCategoryName(@PathVariable String name){
+        return categoryServices.findCategoryByName(name);
+    }
 
 
     @PostMapping()
     public Category addCategory(@RequestBody Category category){
+        return categoryServices.addCategory(category);
 
-
-
-        Category newCategory = categoryServices.addCategory(category);
-        return newCategory;
 
     }
 
-    @GetMapping("/{name}")
-    public Long findIdByCategoryName(@PathVariable String name){
-        return categoryServices.findCategoryByName(name).getCategoryId();
+    @PutMapping()
+    public Category updateCategory(@RequestBody Category category){
+        return categoryServices.updateCategory(category);
     }
+
+    @DeleteMapping("/{id}")
+    public String deleteCategory(@PathVariable Long id){
+        categoryServices.deleteCategoryById(id);
+        return "success";
+    }
+
+
 
 
 
