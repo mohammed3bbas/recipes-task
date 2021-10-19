@@ -11,7 +11,7 @@ public interface CategoryRepo  extends JpaRepository<Category, Long> {
 
     List<Category> findByName(String name);
 
-    @Query(value = "select c.name from category c", nativeQuery= true)
-    List<String> getAllNames();
+//    @Query(value = "select c.name from category c", nativeQuery= true)
+//    List<String> getAllNames();
 }
 

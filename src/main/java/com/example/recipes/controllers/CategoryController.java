@@ -22,7 +22,9 @@ public class CategoryController {
 
     @GetMapping()
     public List<Category> getAllCategories(){
-        return categoryServices.findAllCategories();
+        List<Category> result = categoryServices.findAllCategories();
+//        System.out.println(result.get(0).getRecipe().toString());
+        return result;
     }
     @GetMapping("/{name}")
     public Category findByCategoryName(@PathVariable String name){
@@ -31,7 +33,7 @@ public class CategoryController {
 
 
     @PostMapping()
-    public Category addCategory(@RequestBody Category category){
+    public Category addCategory(@RequestBody CategoryDTO category){
         return categoryServices.addCategory(category);
 
 
@@ -43,9 +45,9 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCategory(@PathVariable Long id){
+    public void deleteCategory(@PathVariable Long id){
         categoryServices.deleteCategoryById(id);
-        return "success";
+//        return "success";
     }
 
 

@@ -31,8 +31,9 @@ public class RecipeController {
 
     @GetMapping()
     public List<Recipe> getAllRecipes() {
+//        System.out.println(recipeServices.findAllRecipes().toString());
         return recipeServices.findAllRecipes();
-//        return recipes;
+
     }
 
     @GetMapping("/{id}")
@@ -41,8 +42,8 @@ public class RecipeController {
 
     }
 
-    @GetMapping("/{name}")
-    public List<Recipe> getRecipesByName(@PathVariable String name) {
+    @GetMapping("/")
+    public List<Recipe> getRecipesByName(@RequestParam String name) {
 
         return recipeServices.findRecipesByName(name);
 
@@ -66,9 +67,9 @@ public class RecipeController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteRecipe(@PathVariable Long id){
+    public void deleteRecipe(@PathVariable Long id){
         recipeServices.deleteRecipeById(id);
-        return "Success";
+//        return "Success";
     }
 
 

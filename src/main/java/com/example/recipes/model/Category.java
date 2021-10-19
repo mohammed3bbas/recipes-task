@@ -1,5 +1,7 @@
 package com.example.recipes.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -16,7 +18,8 @@ public class Category implements Serializable {
     @Column(name="category_name",unique = true,nullable = false)
     private  String name;
 
-
+//    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
     private Set<Recipe> recipe;
 

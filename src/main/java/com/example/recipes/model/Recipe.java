@@ -1,6 +1,7 @@
 package com.example.recipes.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.util.Set;
 @Entity
 
 @Table(name = "recipe")
-public class Recipe  {
+public class Recipe implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //must assign primary keys
     @Column( name="recipe_id")
@@ -22,7 +23,9 @@ public class Recipe  {
     private String imageUrl;
 
     @ManyToOne()
-    @JsonIgnore
+//    @JsonIgnore
+
+//    @JsonManagedReference
     @JoinColumn(name = "category_id")
     private Category category;
 

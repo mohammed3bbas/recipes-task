@@ -2,7 +2,9 @@ package com.example.recipes.service;
 
 
 import com.example.recipes.DTO.CategoryDTO;
+import com.example.recipes.DTO.RecipeDTO;
 import com.example.recipes.model.Category;
+import com.example.recipes.model.Recipe;
 import com.example.recipes.repo.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,24 +23,26 @@ public class CategoryServices {
         this.categoryRepo = categoryRepo;
     }
 //  C
-    public Category addCategory(Category category){
+    public Category addCategory(CategoryDTO categoryDTO){
 
-        if(categoryNameValid(category.getName())){
-            return null;
-        }
+//        if(categoryNameValid(categoryDTO.getName())){
+//            return null;
+//        }
 
+        Category category = new Category();
+        category.setName(categoryDTO.getName());
         return categoryRepo.save(category);
     }
 
-    private boolean categoryNameValid(String name) {
-
-        if(categoryRepo.getAllNames().contains(name)){
-            return false;
-        }
-        return true;
-
-
-    }
+//    private boolean categoryNameValid(String name) {
+//
+//        if(categoryRepo.getAllNames().contains(name)){
+//            return false;
+//        }
+//        return true;
+//
+//
+//    }
 
     //  R
     public List<Category> findAllCategories() {
@@ -55,9 +59,11 @@ public class CategoryServices {
 
         return categoryRepo.findByName(name).get(0);
     }
-    public List<String> findCategoryNames(){
-        return categoryRepo.getAllNames();
-    }
+//    public List<String> findCategoryNames(){
+//        return categoryRepo.getAllNames();
+//    }
+
+
 
 //   U
     public Category updateCategory(Category category){
